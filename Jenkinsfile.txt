@@ -33,7 +33,7 @@ pipeline {
 	                        bat """
 	                        C:\\ProgramData\\Jenkins\\.jenkins\\tools\\hudson.plugins.sonar.SonarRunnerInstallation\\sonarcloud\\bin\\sonar-scanner\
 	                -Dsonar.projectKey=abhijeetbeher_maven-project\
-	                 -Dsonar.sources=Maven_First_Project_Demo//src//main//java\
+	                 -Dsonar.sources=src//main//java\
 	                 -Dsonar.organization=abhijeetbeher\
 	                 -Dsonar.login=ddd557f4d11ce788b0f8a3834a9b80050f456db4\
 	                 """
