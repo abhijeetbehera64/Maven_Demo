@@ -32,10 +32,10 @@ pipeline {
 	                    withSonarQubeEnv('sonarQube') {
 	                        bat """
 	                        C:\\ProgramData\\Jenkins\\.jenkins\\tools\\hudson.plugins.sonar.SonarRunnerInstallation\\sonarcloud\\bin\\sonar-scanner\
-	                -Dsonar.projectKey=abhijeetbeher_maven-project\
+	                -Dsonar.projectKey=abhijeet-jenkins_maven-demo\
 	                 -Dsonar.sources=src//main//java\
-	                 -Dsonar.organization=abhijeetbeher\
-	                 -Dsonar.login=ddd557f4d11ce788b0f8a3834a9b80050f456db4\
+	                 -Dsonar.organization=abhijeet-jenkins\
+	                 -Dsonar.login=2cc1616b21443072ff5f191d8ba5a87ca58b1e9e\
 	                 """
                     }
 		}
