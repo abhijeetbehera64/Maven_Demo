@@ -1,0 +1,61 @@
+pipeline {
+    agent any
+    stages {
+        stage('Pre-Build') {
+            steps {
+                script {
+                   bat 'mvn clean compile'
+                }
+            }
+        }
+       stage ('Build') {
+          steps {
+             script {
+                bat 'mvn -B -DskipTests clean package'
+            }
+        }
+    }
+      stage('Test') {
+            steps {
+                bat 'mvn test'
+            }
+            post {
+                always {
+                    junit 'target/surefire-reports/*.xml'
+                }
+            }
+        }  
+      stage('Static Code Analysis') {
+	    steps {
+		script{
+			def scannerHome = tool name: 'sonarcloud', type: 'hudson.plugins.sonar.SonarRunnerInstallation'
+	                    withSonarQubeEnv('sonarQube') {
+	                        bat """
+	                        C:\\ProgramData\\Jenkins\\.jenkins\\tools\\hudson.plugins.sonar.SonarRunnerInstallation\\sonarcloud\\bin\\sonar-scanner\
+	                -Dsonar.projectKey=abhijeetbeher_maven-project\
+	                 -Dsonar.sources=Maven_First_Project_Demo//src//main//java\
+	                 -Dsonar.organization=abhijeetbeher\
+	                 -Dsonar.login=ddd557f4d11ce788b0f8a3834a9b80050f456db4\
+	                 """
+                    }
+		}
+	    }
+	}
+}
+          post {
+               success{
+			script{
+			   emailext (
+				   body: """
+					Hello, Build was successful!!!
+					Build ${currentBuild.currentResult}: Job '${env.JOB_NAME}' (${env.BUILD_NUMBER})
+					Build URL: ${env.BUILD_URL}
+							""",
+				   subject: "Build ${currentBuild.currentResult}: Job '${env.JOB_NAME}' (${env.BUILD_NUMBER})",
+				   to: 'abhijeetbehera0504@gmail.com',
+				   attachLog: true
+				   )
+		     }
+	       }
+      }
+}
