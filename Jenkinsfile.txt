@@ -13,6 +13,7 @@ pipeline {
           steps {
              script {
                 bat 'mvn -B -DskipTests clean package'
+                bat 'echo Hello Build Successfully'
             }
         }
     }
