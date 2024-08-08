@@ -5,6 +5,7 @@ pipeline {
             steps {
                 script {
                    bat 'mvn clean compile'
+                   bat ' echo Hello Compiled Sucessfully!!!'
                 }
             }
         }
